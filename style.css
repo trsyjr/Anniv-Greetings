@@ -1,0 +1,23 @@
+@keyframes sway {
+      0%, 100% { transform: rotate(-10deg); }
+      50% { transform: rotate(10deg); }
+    }
+    .animate-sway {
+      animation: sway 3s ease-in-out infinite;
+    }
+
+    @keyframes scalePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    .animate-scale {
+      animation: scalePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scaleWithRotate {
+      0%, 100% { transform: rotate(-30deg) scale(1); }
+      50% { transform: rotate(-30deg) scale(1.1); }
+    }
+    .animate-scale-rotate {
+      animation: scaleWithRotate 2s ease-in-out infinite;
+    }
