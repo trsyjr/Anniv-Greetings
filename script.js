@@ -11,7 +11,7 @@ form.addEventListener("submit", async function (e) {
   };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbyvra60dHlLAObUJxFWLeHdrjYBkLTqpfebZ2772WYlHtlKV_GkTDuxdIIcGrQ75mPn/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbz3bZZ-4fvD-oc_tYc_vT1ivQcvrKpVDXXZlGdF3VQCt3No-rdyHQIvzTR-A3r7yl5x/exec", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
