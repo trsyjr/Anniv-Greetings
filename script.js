@@ -16,6 +16,7 @@ const submitBtn = form.querySelector("button[type='submit']");
 const iframe = document.getElementById("hidden_iframe");
 
 iframe.onload = function () {
+  // Show result after successful submission
   resultMsg.textContent = "Submitted successfully! 🎉";
   resultMsg.classList.remove("hidden");
   form.reset();
@@ -33,10 +34,10 @@ iframe.onload = function () {
 form.addEventListener("submit", function(e) {
   e.preventDefault();
 
-  // Disable submit button
+  // Disable submit button immediately
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
 
-  // Actually submit the form via iframe
+  // Submit via iframe
   form.submit();
 });
