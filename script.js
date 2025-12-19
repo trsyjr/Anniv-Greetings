@@ -1,26 +1,3 @@
-document.getElementById("anniversaryForm").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  const name = document.getElementById("name").value;
-  const years = document.getElementById("years").value;
-  const date = document.getElementById("date").value;
-  const message = document.getElementById("message").value;
-
-  console.log({
-    name,
-    years,
-    date,
-    message
-  });
-
-  const result = document.getElementById("result");
-  result.textContent = `Submitted successfully! 🎉`;
-  result.classList.remove("hidden");
-
-  this.reset();
-});
-
-
 const form = document.getElementById("anniversaryForm");
 
 form.addEventListener("submit", async function (e) {
@@ -34,7 +11,7 @@ form.addEventListener("submit", async function (e) {
   };
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycby5vcpg9gbX5Qg1V0_XEIWhfiwJR3o_LR9s3uqZQd8/dev", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyvra60dHlLAObUJxFWLeHdrjYBkLTqpfebZ2772WYlHtlKV_GkTDuxdIIcGrQ75mPn/exec", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -42,17 +19,24 @@ form.addEventListener("submit", async function (e) {
       body: JSON.stringify(data)
     });
 
+    if (!response.ok) throw new Error("Network response was not ok");
+
     const result = await response.json();
 
+    const resultMsg = document.getElementById("result");
+
     if (result.status === "success") {
-      const resultMsg = document.getElementById("result");
       resultMsg.textContent = "Submitted successfully! 🎉";
       resultMsg.classList.remove("hidden");
       form.reset();
     } else {
-      alert("Error: " + result.message);
+      resultMsg.textContent = "Error: " + result.message;
+      resultMsg.classList.remove("hidden");
     }
   } catch (err) {
-    alert("Failed to submit form: " + err.message);
+    const resultMsg = document.getElementById("result");
+    resultMsg.textContent = "Failed to submit form: " + err.message;
+    resultMsg.classList.remove("hidden");
+    console.error(err);
   }
 });
