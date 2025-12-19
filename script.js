@@ -1,33 +1,35 @@
 const form = document.getElementById("anniversaryForm");
 const resultMsg = document.getElementById("result");
-const iframe = document.getElementById("hidden_iframe");
 
-iframe.onload = function () {
+form.addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
   try {
-    const content = iframe.contentDocument.body.innerText;
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: formData
+    });
 
-    if (content.includes("success")) {
-      resultMsg.textContent = "Submitted successfully! 🎉";
-      resultMsg.classList.remove("hidden");
-      form.reset();
+    if (!response.ok) throw new Error("Network response was not ok");
 
-      confetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.6 }
-      });
+    resultMsg.textContent = "Submitted successfully! 🎉";
+    resultMsg.classList.remove("hidden");
+    form.reset();
 
-      // Flash animation effect
-      resultMsg.classList.add("animate-pulse");
-      setTimeout(() => resultMsg.classList.remove("animate-pulse"), 1500);
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 }
+    });
 
-    } else {
-      resultMsg.textContent = "Submission failed.";
-      resultMsg.classList.remove("hidden");
-    }
+    resultMsg.classList.add("animate-pulse");
+    setTimeout(() => resultMsg.classList.remove("animate-pulse"), 1500);
+
   } catch (err) {
     console.error(err);
-    resultMsg.textContent = "An error occurred.";
+    resultMsg.textContent = "Failed to submit form: " + err.message;
     resultMsg.classList.remove("hidden");
   }
-};
+});
