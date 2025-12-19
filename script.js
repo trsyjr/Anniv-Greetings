@@ -12,24 +12,27 @@ form.addEventListener("submit", async function(e) {
       body: formData
     });
 
-    if (!response.ok) throw new Error("Network response was not ok");
+    const result = await response.json(); // now safely parse JSON
 
-    resultMsg.textContent = "Submitted successfully! 🎉";
-    resultMsg.classList.remove("hidden");
-    form.reset();
+    if (result.status === "success") {
+      resultMsg.textContent = "Submitted successfully! 🎉";
+      resultMsg.classList.remove("hidden");
+      form.reset();
 
-    confetti({
-      particleCount: 150,
-      spread: 80,
-      origin: { y: 0.6 }
-    });
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
 
-    resultMsg.classList.add("animate-pulse");
-    setTimeout(() => resultMsg.classList.remove("animate-pulse"), 1500);
+    } else {
+      resultMsg.textContent = "Submission failed: " + (result.message || "Unknown error");
+      resultMsg.classList.remove("hidden");
+    }
 
   } catch (err) {
-    console.error(err);
     resultMsg.textContent = "Failed to submit form: " + err.message;
     resultMsg.classList.remove("hidden");
+    console.error(err);
   }
 });
