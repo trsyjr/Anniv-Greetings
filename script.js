@@ -21,32 +21,38 @@ document.getElementById("anniversaryForm").addEventListener("submit", function (
 });
 
 
-const form = document.getElementById('anniversaryForm');
+const form = document.getElementById("anniversaryForm");
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+form.addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-    const data = {
-      name: document.getElementById('name').value,
-      position: document.getElementById('position').value,
-      date: document.getElementById('date').value
-    };
+  const data = {
+    name: document.getElementById("name").value,
+    position: document.getElementById("position").value,
+    date: document.getElementById("date").value,
+    message: document.getElementById("message") ? document.getElementById("message").value : ""
+  };
 
-    try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbyvra60dHlLAObUJxFWLeHdrjYBkLTqpfebZ2772WYlHtlKV_GkTDuxdIIcGrQ75mPn/exec", {
-        method: "POST",
-        body: JSON.stringify(data)
-      });
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbyvra60dHlLAObUJxFWLeHdrjYBkLTqpfebZ2772WYlHtlKV_GkTDuxdIIcGrQ75mPn/exec", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
 
-      const result = await response.json();
+    const result = await response.json();
 
-      if (result.status === "success") {
-        alert("Your submission has been saved!");
-        form.reset();
-      } else {
-        alert("Error: " + result.message);
-      }
-    } catch (err) {
-      alert("Failed to submit form. " + err);
+    if (result.status === "success") {
+      const resultMsg = document.getElementById("result");
+      resultMsg.textContent = "Submitted successfully! 🎉";
+      resultMsg.classList.remove("hidden");
+      form.reset();
+    } else {
+      alert("Error: " + result.message);
     }
-  });
+  } catch (err) {
+    alert("Failed to submit form: " + err.message);
+  }
+});
