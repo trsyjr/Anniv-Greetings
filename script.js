@@ -10,12 +10,17 @@ window.addEventListener("load", () => {
   });
 });
 
-// Form submission with confetti
+// Form submission with confetti and button disable
 const form = document.getElementById("anniversaryForm");
 const resultMsg = document.getElementById("result");
+const submitBtn = form.querySelector("button[type='submit']");
 
 form.addEventListener("submit", async function(e) {
   e.preventDefault();
+
+  // Disable button immediately
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Submitting...";
 
   const formData = new FormData(form);
 
@@ -25,7 +30,6 @@ form.addEventListener("submit", async function(e) {
       body: formData
     });
 
-    // Since Apps Script returns HTML, parse text instead of JSON
     const text = await response.text();
 
     if (text.toLowerCase().includes("success")) {
@@ -39,14 +43,24 @@ form.addEventListener("submit", async function(e) {
         origin: { y: 0.6 }
       });
 
+      // Re-enable button after short delay
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
+      }, 2000); // optional delay to prevent spamming
+
     } else {
       resultMsg.textContent = "Submission failed: " + text;
       resultMsg.classList.remove("hidden");
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit";
     }
 
   } catch (err) {
     resultMsg.textContent = "Failed to submit form: " + err.message;
     resultMsg.classList.remove("hidden");
     console.error(err);
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Submit";
   }
 });
