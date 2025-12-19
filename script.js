@@ -12,15 +12,22 @@ iframe.onload = function () {
       form.reset();
 
       confetti({
-        particleCount: 100,
-        spread: 70,
+        particleCount: 150,
+        spread: 80,
         origin: { y: 0.6 }
       });
+
+      // Flash animation effect
+      resultMsg.classList.add("animate-pulse");
+      setTimeout(() => resultMsg.classList.remove("animate-pulse"), 1500);
+
     } else {
       resultMsg.textContent = "Submission failed.";
       resultMsg.classList.remove("hidden");
     }
   } catch (err) {
     console.error(err);
+    resultMsg.textContent = "An error occurred.";
+    resultMsg.classList.remove("hidden");
   }
 };
