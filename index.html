@@ -19,13 +19,13 @@
   <img src="Assets/TY2.png" alt="Decor 4" class="absolute top-[20rem] right-[10rem] w-1/2 sm:w-1/3 -translate-y-1/2 animate-sway">
   <img src="Assets/HEART.webp" alt="Decor 5" class="absolute top-3/4 right-[1rem] w-1/8 sm:w-1/12 -translate-y-1/2 animate-scale">
 
+  <!-- Main Form -->
   <div class="relative z-10 bg-white p-10 rounded-2xl shadow-2xl w-full max-w-md mx-4 sm:mx-0">
-    <h1 class="text-3xl font-bold text-center mb-8 text-blue-700">🎉 Anniversary Greetings Form 🎉</h1>
+    <h1 class="text-3xl font-bold text-center mb-8 text-blue-700">Anniversary Greetings Form</h1>
 
     <form id="anniversaryForm"
       method="POST"
       action="https://script.google.com/macros/s/AKfycbxlOjwwxeVbNvkc2rVCUpJqzPKKH8u9kpvYi_bel97EfdrF2tsI7pN7LtJ-2sGXHPa_/exec"
-      target="hidden_iframe"
       class="space-y-5"
     >
       <div>
@@ -59,8 +59,27 @@
 
   <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
 
+  <!-- Modal -->
+  <div id="welcomeModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 max-w-xl mx-4 text-gray-700">
+      <h2 class="text-2xl font-bold text-center mb-4 text-blue-700">CBD Celebrates Your Milestones!</h2>
+      <p class="mb-4 text-justify">
+        Help Us Recognize Your Work Anniversary! Each year of service represents your dedication, growth, and meaningful contribution to the Department. Allow us to recognize your service and contribution to the social welfare and development by recognizing your hard work and commitment!
+      </p>
+      <p class="mb-4 text-justify">
+        In line with this, we would like to formally recognize and celebrate your work anniversary—a milestone that reflects your valuable service and continued partnership with the organization.
+      </p>
+      <p class="mb-4 text-justify">
+        To help us do this meaningfully, we kindly request you to share your work anniversary date (start date with the department). Your information will allow us to acknowledge and thank you at the appropriate time.
+      </p>
+      <p class="mb-6 text-justify">
+        Thank you for being an integral part of the team. We look forward to celebrating your milestones and expressing our gratitude for your continued service.
+      </p>
+      <button id="closeModal" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-semibold transition">Got it!</button>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script src="script.js"></script>
-
 </body>
 </html>
