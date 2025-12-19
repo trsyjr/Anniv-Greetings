@@ -9,34 +9,31 @@ window.addEventListener("load", () => {
   });
 });
 
-// Form submission via hidden iframe
+// Form submission: normal POST + success overlay
 const form = document.getElementById("anniversaryForm");
 const resultMsg = document.getElementById("result");
 const submitBtn = form.querySelector("button[type='submit']");
-const iframe = document.getElementById("hidden_iframe");
 
-iframe.onload = function () {
-  resultMsg.textContent = "Submitted successfully! 🎉";
-  resultMsg.classList.remove("hidden");
-  form.reset();
-  submitBtn.disabled = false;
-  submitBtn.textContent = "Submit";
-
+form.addEventListener("submit", (e) => {
+  // Show confetti immediately
   confetti({
     particleCount: 150,
     spread: 80,
     origin: { y: 0.6 }
   });
-};
 
-
-form.addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  // Disable submit button immediately
+  // Disable button to prevent double submit
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
 
-  // Submit via iframe
-  form.submit();
+  // Let the browser handle the POST (no fetch)
+  // After submission, the Apps Script can redirect to a "thank you" page if desired
+  // or you can stay on the same page with a query param, e.g., ?submitted=true
 });
+
+// Optional: show success if ?submitted=true
+const params = new URLSearchParams(window.location.search);
+if (params.get("submitted") === "true") {
+  resultMsg.textContent = "Submitted successfully! 🎉";
+  resultMsg.classList.remove("hidden");
+}
