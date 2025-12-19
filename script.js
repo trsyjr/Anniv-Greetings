@@ -41,3 +41,19 @@ form.addEventListener("submit", async function(e) {
     console.error(err);
   }
 });
+
+function submitted() {
+  const resultMsg = document.getElementById("result");
+  resultMsg.textContent = "Submitted successfully! 🎉";
+  resultMsg.classList.remove("hidden");
+
+  const form = document.getElementById("anniversaryForm");
+  form.reset();
+
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+}
+
