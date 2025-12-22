@@ -38,8 +38,9 @@ form.addEventListener("submit", async (e) => {
     }
 
     // ✅ Success message
-    resultMsg.textContent = "Submitted successfully! 🎉";
-    resultMsg.classList.remove("hidden");
+    resultMsg.textContent = "Submitted successfully!";
+    resultMsg.classList.remove("hidden", "text-red-600");
+    resultMsg.classList.add("text-green-600")
 
     form.reset();
 
@@ -65,7 +66,9 @@ form.addEventListener("submit", async (e) => {
   } catch (error) {
     // ❌ Failure
     resultMsg.textContent = "Submission failed. Please try again.";
-    resultMsg.classList.remove("hidden");
+    resultMsg.classList.remove("hidden", "text-green-600");
+    resultMsg.classList.add("text-red-600");
+
 
     submitBtn.disabled = false;
     submitBtn.textContent = "Submit";
