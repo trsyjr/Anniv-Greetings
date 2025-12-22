@@ -18,7 +18,7 @@ const submitBtn = form.querySelector("button[type='submit']");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 🔒 Lock button
+  // 🔒 Lock submit button
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
   submitBtn.classList.add("opacity-60", "cursor-not-allowed");
@@ -37,7 +37,7 @@ form.addEventListener("submit", async (e) => {
       throw new Error(text);
     }
 
-    // ✅ Success
+    // ✅ Success message
     resultMsg.textContent = "Submitted successfully! 🎉";
     resultMsg.classList.remove("hidden");
 
@@ -49,12 +49,18 @@ form.addEventListener("submit", async (e) => {
       origin: { y: 0.6 }
     });
 
-    // 🔓 Re-enable button after success (1.5s delay)
+    // 🔓 Re-enable submit button after 1.5s
     setTimeout(() => {
       submitBtn.disabled = false;
       submitBtn.textContent = "Submit";
       submitBtn.classList.remove("opacity-60", "cursor-not-allowed");
     }, 1500);
+
+    // 👻 Hide success message after 3 seconds
+    setTimeout(() => {
+      resultMsg.classList.add("hidden");
+      resultMsg.textContent = "";
+    }, 3000);
 
   } catch (error) {
     // ❌ Failure
