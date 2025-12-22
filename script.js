@@ -18,7 +18,7 @@ const submitBtn = form.querySelector("button[type='submit']");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  // 🔒 Lock the button
+  // 🔒 Lock button
   submitBtn.disabled = true;
   submitBtn.textContent = "Submitting...";
   submitBtn.classList.add("opacity-60", "cursor-not-allowed");
@@ -33,29 +33,34 @@ form.addEventListener("submit", async (e) => {
 
     const text = await response.text();
 
-    if (text.toLowerCase().includes("success")) {
-      resultMsg.textContent = "Submitted successfully! 🎉";
-      resultMsg.classList.remove("hidden");
-
-      form.reset();
-
-      confetti({
-        particleCount: 150,
-        spread: 80,
-        origin: { y: 0.6 }
-      });
-
-      // ✅ Keep button disabled after success
-      submitBtn.textContent = "Submitted";
-    } else {
+    if (!text.toLowerCase().includes("success")) {
       throw new Error(text);
     }
 
+    // ✅ Success
+    resultMsg.textContent = "Submitted successfully! 🎉";
+    resultMsg.classList.remove("hidden");
+
+    form.reset();
+
+    confetti({
+      particleCount: 150,
+      spread: 80,
+      origin: { y: 0.6 }
+    });
+
+    // 🔓 Re-enable button after success (1.5s delay)
+    setTimeout(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Submit";
+      submitBtn.classList.remove("opacity-60", "cursor-not-allowed");
+    }, 1500);
+
   } catch (error) {
+    // ❌ Failure
     resultMsg.textContent = "Submission failed. Please try again.";
     resultMsg.classList.remove("hidden");
 
-    // 🔓 Re-enable button if failed
     submitBtn.disabled = false;
     submitBtn.textContent = "Submit";
     submitBtn.classList.remove("opacity-60", "cursor-not-allowed");
